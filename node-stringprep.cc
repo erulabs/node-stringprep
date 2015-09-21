@@ -290,8 +290,8 @@ extern "C" void init(Handle<Object> target)
 {
   Nan::HandleScope scope;
   StringPrep::Initialize(target);
-  NODE_SET_METHOD(target, "toUnicode", ToUnicode);
-  NODE_SET_METHOD(target, "toASCII", ToASCII);
+  Nan::SetPrototypeMethod(target, "toUnicode", ToUnicode);
+  Nan::SetPrototypeMethod(target, "toASCII", ToASCII);
 }
 
 NODE_MODULE(node_stringprep, init)
