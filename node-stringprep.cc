@@ -25,7 +25,7 @@ public:
     t->InstanceTemplate()->SetInternalFieldCount(1);
     Nan::SetPrototypeMethod(t, "prepare", Prepare);
 
-    target->Set(Nan::New<String>("StringPrep"), t->GetFunction());
+    target->Set(Nan::New<String>("StringPrep").ToLocalChecked(), t->GetFunction());
   }
 
   bool good() const
