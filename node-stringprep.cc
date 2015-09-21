@@ -63,13 +63,13 @@ protected:
         if (self->good())
           {
             self->Wrap(info.This());
-            NanReturnValue(info.This());
+            info.GetReturnValue().Set(info.This());
           }
         else
           {
             const char* err = self->errorName();
             delete self;
-            NanThrowError(err);
+            Nan::ThrowError(err);
             return;
           }
       }
@@ -103,7 +103,7 @@ protected:
       {
         StringPrep *self = ObjectWrap::Unwrap<StringPrep>(info.This());
         String::Value arg0(info[0]->ToString());
-        NanReturnValue(self->prepare(arg0));
+        info.GetReturnValue().Set(self->prepare(arg0));
       }
     else {
       Nan::ThrowTypeError("Bad argument.");
@@ -222,7 +222,7 @@ NAN_METHOD(ToUnicode)
           {
             // other error, just bail out
             delete[] dest;
-            NanThrowError(u_errorName(error));
+            Nan::ThrowError(u_errorName(error));
             return;
           }
         else
@@ -231,7 +231,7 @@ NAN_METHOD(ToUnicode)
 
     Local<String> result = Nan::New<String>(dest, destLen);
     delete[] dest;
-    NanReturnValue(result);
+    info.GetReturnValue().Set(result);
   }
   else {
     Nan::ThrowTypeError("Bad argument.");
@@ -270,13 +270,13 @@ NAN_METHOD(ToASCII)
       {
         // other error, just bail out
         delete[] dest;
-        NanThrowError(u_errorName(error));
+        Nan::ThrowError(u_errorName(error));
         return;
       }
 
     Local<String> result = Nan::New<String>(dest, destLen);
     delete[] dest;
-    NanReturnValue(result);
+    info.GetReturnValue().Set(result);
   }
   else {
     Nan::ThrowTypeError("Bad argument.");
