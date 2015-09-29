@@ -111,7 +111,7 @@ protected:
 
   Local<Value> prepare(String::Value &str)
   {
-    Nan::EscapableHandleScope scope
+    Nan::EscapableHandleScope scope;
     size_t destLen = str.length() + 1;
     UChar *dest = NULL;
     while(!dest)
@@ -225,7 +225,7 @@ NAN_METHOD(ToUnicode)
           destLen = w;
       }
 
-    Local<String> result = Nan::New<String>(dest, destLen);
+    Local<String> result = Nan::New<String>(dest, destLen).ToLocalChecked();
     delete[] dest;
     info.GetReturnValue().Set(result);
     return;
@@ -269,7 +269,7 @@ NAN_METHOD(ToASCII)
         return;
       }
 
-    Local<String> result = Nan::New<String>(dest, destLen);
+    Local<String> result = Nan::New<String>(dest, destLen).ToLocalChecked();
     delete[] dest;
     info.GetReturnValue().Set(result);
     return;
